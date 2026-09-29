@@ -123,6 +123,12 @@ function h(mixed $value): string
 const statusText = {online:'連線',offline:'失敗',testing:'測試中',disabled:'停用',unknown:'未測試'};
 const rows = [...document.querySelectorAll('tr[data-station]')];
 
+function hasValidIp(row){
+    const ip = row.querySelector('.ip-input')?.value.trim() || '';
+    const port = Number(row.querySelector('.port-input')?.value || 0);
+    return row.querySelector('.ip-check')?.checked === true && ip !== '' && ip !== '0.0.0.0' && port > 0;
+}
+
 function setStatus(row,status,message=''){
     const cell=row.querySelector('.status');
     cell.className='status status-'+status;
@@ -144,13 +150,20 @@ async function testRow(row){
 }
 async function testRows(targetRows){
     let online=0,failed=0;
+    if(targetRows.length===0){
+        document.getElementById('summaryText').textContent='沒有可測試的站號';
+        return;
+    }
     document.getElementById('summaryText').textContent='測試中...';
     for(const row of targetRows){ if(await testRow(row)) online++; else failed++; }
     document.getElementById('summaryText').textContent='完成：'+online+' 台連線，'+failed+' 台失敗';
 }
-document.querySelectorAll('.test-one').forEach(b=>b.addEventListener('click',()=>testRow(b.closest('tr'))));
-document.getElementById('testAll').addEventListener('click',()=>testRows(rows.filter(r=>r.dataset.ipEnabled==='1')));
-document.getElementById('testSelected').addEventListener('click',()=>testRows(rows.filter(r=>r.dataset.ipEnabled==='1'&&r.querySelector('.station-check').checked)));
+document.querySelectorAll('.test-one').forEach(b=>b.addEventListener('click',()=>{
+    const row=b.closest('tr');
+    if(hasValidIp(row)) testRow(row);
+}));
+document.getElementById('testAll').addEventListener('click',()=>testRows(rows.filter(hasValidIp)));
+document.getElementById('testSelected').addEventListener('click',()=>testRows(rows.filter(r=>r.querySelector('.station-check').checked&&hasValidIp(r))));
 document.getElementById('save').addEventListener('click',()=>alert('目前先做連線測試；設定儲存功能下一步加入。'));
 document.getElementById('cancel').addEventListener('click',()=>history.back());
 </script>
