@@ -15,12 +15,12 @@ if ($controller === null) {
     exit;
 }
 
-if (!(int) $controller['ip_enabled'] || $controller['ip_address'] === '' || !(int) $controller['port']) {
+if (!(int) $controller['ip_enabled'] || $controller['ip_address'] === '' || $controller['ip_address'] === '0.0.0.0' || !(int) $controller['port']) {
     $controllers->updateStatus($station, 'disabled');
     echo json_encode([
         'ok' => false,
         'status' => 'disabled',
-        'message' => '未啟用 IP 或沒有 IP/Port',
+        'message' => '未啟用 IP 或沒有有效的 IP/Port',
     ], JSON_UNESCAPED_UNICODE);
     exit;
 }
