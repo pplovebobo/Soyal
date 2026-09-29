@@ -29,17 +29,24 @@ function h(mixed $value): string
         .legacy-dialog { background:#f7f7f7; border:1px solid #777; box-shadow:0 2px 10px rgba(0,0,0,.25); }
         .dialog-title { padding:9px 12px; background:linear-gradient(#1682d5,#07599d); color:#fff; font-weight:700; font-size:17px; }
         .controller-table-wrap { overflow:auto; max-height:68vh; background:#fff; }
-        .controller-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px; }
+        .controller-table { width:100%; min-width:1050px; border-collapse:collapse; table-layout:fixed; font-size:14px; }
         .controller-table th,.controller-table td { border:1px solid #c8c8c8; padding:4px 6px; height:38px; white-space:nowrap; }
         .controller-table th { background:#ececec; text-align:center; }
         .controller-table select,.controller-table input[type=text],.controller-table input[type=number] { width:100%; height:30px; border:1px solid #aaa; background:#fff; }
-        .station { width:70px; text-align:center; }
+        .station { width:90px; text-align:center; }
         .ipcheck { width:55px; text-align:center; }
-        .ip { width:190px; }
-        .port { width:80px; }
-        .model { width:320px; }
+        .ip { width:220px; }
+        .port { width:95px; }
+        .model { width:285px; }
         .status { width:105px; text-align:center; font-weight:700; }
         .test { width:82px; text-align:center; }
+        .controller-table th:nth-child(1), .controller-table td:nth-child(1) { width:90px; }
+        .controller-table th:nth-child(2), .controller-table td:nth-child(2) { width:285px; }
+        .controller-table th:nth-child(3), .controller-table td:nth-child(3) { width:55px; }
+        .controller-table th:nth-child(4), .controller-table td:nth-child(4) { width:220px; }
+        .controller-table th:nth-child(5), .controller-table td:nth-child(5) { width:95px; }
+        .controller-table th:nth-child(6), .controller-table td:nth-child(6) { width:105px; }
+        .controller-table th:nth-child(7), .controller-table td:nth-child(7) { width:82px; }
         .status-online { color:#18733b; }
         .status-offline { color:#a32929; }
         .status-testing { color:#8a6400; }
